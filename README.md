@@ -6,6 +6,10 @@ https://docs.docker.com/install/
 install docker compose 
 https://docs.docker.com/compose/install/
 
+JOOMLA_USERNAME: Joomla application username. Default: user
+JOOMLA_PASSWORD: Joomla application password. Default: bitnami
+https://github.com/bitnami/bitnami-docker-joomla#configuration
+
 # setup
 
 start
