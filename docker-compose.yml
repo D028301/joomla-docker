@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  mariadb:
+    restart: unless-stopped
+    image: 'bitnami/mariadb:10.1'
+    networks:
+      - app-tier
+    environment:
+      - MARIADB_USER=bn_joomla
+      - MARIADB_DATABASE=bn_joomla
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - './mariadb_data:/bitnami'
+  joomla:
+    restart: unless-stopped
+    image: 'bitnami/joomla:3'
+    networks:
+      - app-tier
+    environment:
+      - MARIADB_HOST=mariadb
+      - MARIADB_PORT_NUMBER=3306
+      - JOOMLA_DATABASE_USER=bn_joomla
+      - JOOMLA_DATABASE_NAME=bn_joomla
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - './joomla_data:/bitnami'
+    depends_on:
+      - mariadb
+networks:
+  app-tier:
+    driver: bridge
